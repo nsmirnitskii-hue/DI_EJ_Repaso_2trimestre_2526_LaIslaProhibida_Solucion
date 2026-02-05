@@ -59,11 +59,19 @@ fun GameTopBar(navController: NavController) {
     )
 }
 
+//TopAppBar(
+//TO DO: Añade lo necesario en la barra de navegacion
 
+/*TO DO personaliza este color segun nuestro estilo
+colors = TopAppBarDefaults.mediumTopAppBarColors(
+    containerColor = Color(0xFF4CAF50),
+    titleContentColor = Color.White
+)
+)*/
 @Composable
 fun GameBottomBar(state: GameState) {
     BottomAppBar(
-        containerColor = Color(0xFF81C784)
+        containerColor = Color(0xFF81C784)//TO DO: Cambia el color a uno personalizado por nuestro tema
     ) {
         Text(
             "Tesoros: ${state.treasuresCollected}   Agua: ${state.waterLevel}",
@@ -71,6 +79,9 @@ fun GameBottomBar(state: GameState) {
         )
     }
 }
+//TO DO: Anyade el contador de tesoros y del nivel de agua, que se calcula en el viewModel, anyadele un
+//modificador con un padding de 8.dp
+
 
 @Composable
 fun RestartButton(vm: GameViewModel) {
@@ -78,7 +89,8 @@ fun RestartButton(vm: GameViewModel) {
         Icon(painterResource(R.drawable.rounded_360_24), contentDescription = null)
     }
 }
-
+//TO DO: Crea el floating action button (anyadele un icono) y haz que el juego reinicie al pincharlo,
+// recuerda que esa funcionalidad ya está programada.
 @Composable
 fun GameBody(state: GameState, vm: GameViewModel) {
 
@@ -122,6 +134,29 @@ fun GameBody(state: GameState, vm: GameViewModel) {
         }
     }
 }
+
+//TO DO: Piensa que estructura utilizar para dar forma a la ventana.
+//Anyade padding 30.dp, que se extienda lo posible
+//Y que este centrado horizontalmente
+//Intenta que no se amontonen todos los componentes de la ventana
+//Anyade 2 botones para que el jugador elija si va a mover o va a salvar una loseta. (Usa la funcion setAction).
+//y que cambie de color dependiendo si esta seleccionado o no.
+//Dibuja el tablero de las losetas (cuadrados) las losetas (tile) y el tablero ya estan creadas en una estructura
+//del GameModels a la que se accede desde el GameViewModel para ello te recomiendo que uses la funcion TileView
+//y completes dicha funcion
+//para el atributo hasPlayer  del tileView compara cada posición con el state.playerPos asi:
+/* TileView(
+                    tile = tile,
+                    hasPlayer = state.playerPos == Position(r, c),
+                    onClick = { vm.onTileSelected(Position(r, c)) }
+                )*/
+//Después separalo
+// Anyade el progressbar del nivel del agua, dicho dato se almacena en state.waterLevel.
+//calcula el progreso dividiendo el nivel del agua actual/nivel máximo, que es 10
+//Anyade un mensaje que solo sea visible cuando se complete el juego
+//Si has ganado state.win tienes pon "has ganado" si no "has perdido" como titleLarge y con un color
+//del tema.
+
 
 @Composable
 fun ActionSelector(selected: ActionMode, vm: GameViewModel) {
@@ -175,7 +210,12 @@ fun TileView(tile: Tile, hasPlayer: Boolean, onClick: () -> Unit) {
         }
     }
 }
-
+//Haz que cada loseta cambie de color segun su estado TileState.NORMAL, TileState.FLOODED o TileState.SUNK
+//Crea cada casilla de un tamaño de 56.dp
+//Un padding de 2.dp
+//Que solo se pueda clickar cuando el estado de la loseta sea diferente a TileState.SUNK
+//Cuando la loseta tiene un jugador (hasPlayer) se le anade la imagen del mono
+//Cuando la loseta tiene un tesoro se le anade la imagen del platano
 
 @Composable
 fun HelpScreen(navController: NavController) {
